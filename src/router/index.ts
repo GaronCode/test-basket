@@ -3,13 +3,13 @@ import BasketView from '../views/BasketView.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/basket',
+    path: '/test-basket',
     name: 'basket',
     component: BasketView
   },
   {
     path: '/:catchAll(.*)',
-    redirect: '/basket'
+    redirect: '/test-basket'
   }
 ]
 

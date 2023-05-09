@@ -3,10 +3,10 @@
 
 **TypeScript** + **Vue 3** + **Vuex** + **SCSS** + **axios** (загрузка с сервера карточек просмотренных товаров)
 
+## [Ссылка на работающее приложение](https://garoncode.github.io/test-basket/)
 
 
-
-## [figma макет](https://www.figma.com/file/MyzTlBZHLzNpf6XbhctlxD/%D0%A2%D0%B5%D1%81%D1%82%D0%BE%D0%B2%D0%BE%D0%B5-Basket?type=design&t=48HFDuYEN8kMc3fl-1)
+### [figma макет](https://www.figma.com/file/MyzTlBZHLzNpf6XbhctlxD/%D0%A2%D0%B5%D1%81%D1%82%D0%BE%D0%B2%D0%BE%D0%B5-Basket?type=design&t=48HFDuYEN8kMc3fl-1)
 
 
 > ТЗ:

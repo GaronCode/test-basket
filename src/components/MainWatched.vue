@@ -1,6 +1,6 @@
 <template lang="html">
 	<!-- /* main-watched start */ -->
-	<div class="watched-products">
+	<div class="watched-products" v-if="items.length > 0">
 		<div class="watched-products__top-container">
 			<div class="watched-products__header">Просмотренные товары</div>
 			<nav class="nav">
@@ -33,62 +33,72 @@
 				</a>
 			</nav>
 		</div>
-		<div class="watched-products__list">
-			<li
-				v-for="(item, index) in items"
-				:key="index"
-				class="watched-products__item"
-			>
-				<MainWatchedItem
+		<ul class="watched-products__list">
+			<template v-for="(item, index) in items" :key="index">
+				<li
+					class="watched-products__item"
 					v-if="index >= firstIndex && index <= lastIndex"
-					:itemW="item.name"
-					:itemAb="item.about"
-					:icoW="item.img"
-					:itemAlt="item.alt"
-				/>
-			</li>
-		</div>
+				>
+					<MainWatchedItem
+						:itemW="item.name"
+						:itemAb="item.about"
+						:icoW="item.img"
+						:itemAlt="item.alt"
+					/>
+				</li>
+			</template>
+		</ul>
 	</div>
 	<!-- /* main-watched end */ -->
 </template>
 
 <script>
+import { computed, ref } from "vue";
+import { useStore } from "vuex";
+
 import MainWatchedItem from "./MainWatchedItem.vue";
 export default {
 	name: "main-watched",
 	components: {
 		MainWatchedItem,
 	},
-	computed: {
-		items() {
-			return this.$store.getters.history;
-		},
-		currentPage() {
-			return this.firstIndex / this.stepIndex + 1;
-		},
-		maxPage() {
-			return Math.ceil(this.items.length / this.stepIndex);
-		},
-	},
-	data() {
-		return {
-			firstIndex: 0,
-			lastIndex: 3,
-			stepIndex: 4,
-		};
-	},
-	methods: {
-		forward() {
-			if (this.currentPage === this.maxPage) return;
-			this.firstIndex += this.stepIndex;
-			this.lastIndex += this.stepIndex;
-		},
-		backward() {
-			if (this.currentPage === 1) return;
+	setup() {
+		const store = useStore();
 
-			this.firstIndex -= this.stepIndex;
-			this.lastIndex -= this.stepIndex;
-		},
+		const firstIndex = ref(0),
+			lastIndex = ref(3),
+			stepIndex = ref(4);
+
+		const items = computed(() => store.getters.history);
+
+		const currentPage = computed(
+				() => firstIndex.value / stepIndex.value + 1
+			),
+			maxPage = computed(() =>
+				Math.ceil(items.value.length / stepIndex.value)
+			);
+
+		const forward = () => {
+				if (currentPage.value === maxPage.value) return;
+				firstIndex.value += stepIndex.value;
+				lastIndex.value += stepIndex.value;
+			},
+			backward = () => {
+				if (currentPage.value === 1) return;
+
+				firstIndex.value -= stepIndex.value;
+				lastIndex.value -= stepIndex.value;
+			};
+		return {
+			items,
+			firstIndex,
+			lastIndex,
+			stepIndex,
+			currentPage,
+			maxPage,
+			forward,
+			backward,
+		};
 	},
 };
 </script>
@@ -115,7 +125,7 @@ export default {
 	&__list {
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: space-between;
+		gap: 7px;
 	}
 
 	&__item {
@@ -126,7 +136,7 @@ export default {
 .nav {
 	display: flex;
 	flex-wrap: wrap;
-
+	user-select: none;
 	&__button {
 		cursor: pointer;
 
@@ -163,11 +173,49 @@ export default {
 		font-size: 18px;
 		color: #797b86;
 		margin-bottom: 3px;
+		user-select: none;
 	}
 
 	&__div {
 		margin-left: 8px;
 		margin-right: 6px;
+	}
+}
+
+@media screen and (max-width: 1300px) {
+	.watched-products {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		max-width: 800px;
+		width: 100%;
+	}
+	.watched-products__list {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 10px;
+	}
+
+	.watched-products__top-container {
+		width: 100%;
+	}
+}
+
+@media screen and (max-width: 830px) {
+	.watched-products__top-container {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+}
+
+@media screen and (max-width: 640px) {
+	.watched-products__top-container {
+		justify-content: center;
+		gap: 10px;
+	}
+	.watched-products__list {
+		display: flex;
+		flex-direction: column;
 	}
 }
 </style>

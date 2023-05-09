@@ -21,15 +21,16 @@
 </template>
 
 <script>
+import { computed } from "vue";
+import { useStore } from "vuex";
 export default {
 	name: "header-basket",
-	computed: {
-		count() {
-			return this.$store.getters.basketCountObj;
-		},
-		sumn() {
-			return this.$store.getters.basketPrice;
-		},
+	setup() {
+		const store = useStore();
+		return {
+			count: computed(() => store.getters.basketCountObj),
+			sumn: computed(() => store.getters.basketPrice),
+		};
 	},
 };
 </script>
@@ -64,6 +65,12 @@ export default {
 			line-height: 145%;
 			color: #1f2432;
 		}
+	}
+}
+
+@media screen and (max-width: 1300px) {
+	.mini-basket {
+		padding-right: 10px;
 	}
 }
 </style>

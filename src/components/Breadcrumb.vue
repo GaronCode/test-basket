@@ -16,9 +16,10 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from "vue";
+export default defineComponent({
 	name: "bread-crumb",
-};
+});
 </script>
 
 <style lang="scss" scoped>

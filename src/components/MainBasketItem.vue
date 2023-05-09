@@ -59,18 +59,15 @@ export default {
 		price: { type: Number, default: 0 },
 		img: String,
 	},
-	methods: {
-		add() {
-			this.$emit("addItem");
-		},
-		remove() {
-			if (this.count > 1) {
-				this.$emit("removeItem");
-			}
-		},
-		deleteItem() {
-			this.$emit("deleteItem");
-		},
+	emits: ["addItem", "removeItem", "deleteItem"],
+	setup(props, { emit }) {
+		return {
+			add: () => emit("addItem"),
+			remove: () => {
+				if (props.count > 1) emit("removeItem");
+			},
+			deleteItem: () => emit("deleteItem"),
+		};
 	},
 };
 </script>
@@ -187,6 +184,28 @@ export default {
 		font-weight: 400;
 		font-size: 12px;
 		line-height: 145%;
+	}
+}
+
+@media screen and (max-width: 675px) {
+	.basket-item {
+		flex-direction: column;
+		justify-content: center;
+		text-align: center;
+
+		&__price {
+			margin-top: 30px;
+			margin-right: 0 !important;
+		}
+
+		&__text-container {
+			margin: 0 !important;
+		}
+
+		&__button {
+			align-self: end !important;
+			order: -1;
+		}
 	}
 }
 </style>

@@ -5,7 +5,7 @@
 			<MainSum class="backet__sumn" />
 		</div>
 	</div>
-	<div class="wrapper">
+	<div class="watched wrapper">
 		<MainWatched />
 	</div>
 </template>
@@ -16,13 +16,9 @@ import MainSum from "@/components/MainSum.vue";
 import MainWatched from "@/components/MainWatched.vue";
 
 import { defineComponent } from "vue";
+
 export default defineComponent({
-	name: "HomeView",
-	components: {
-		MainBasket,
-		MainSum,
-		MainWatched,
-	},
+	components: { MainBasket, MainSum, MainWatched },
 });
 </script>
 
@@ -46,6 +42,26 @@ export default defineComponent({
 	&__sumn {
 		align-self: center;
 		width: 440px;
+	}
+}
+
+@media screen and (max-width: 1300px) {
+	.basket {
+		flex-direction: column;
+		align-items: center;
+		margin-bottom: 50px;
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+
+	.basket__container {
+		margin-top: 40px;
+		margin-bottom: 40px;
+	}
+
+	.watched {
+		display: flex;
+		justify-content: center;
 	}
 }
 </style>

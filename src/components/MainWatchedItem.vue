@@ -1,7 +1,10 @@
 <template lang="html">
 	<!-- /* main-watched-item start */ -->
 	<div class="product">
-		<img :src="require('@/assets/images/' + icoW)" :alt="itemAlt" />
+		<div class="product__img">
+			<img v-if="icoW" :src="icoW" :alt="itemAlt" />
+		</div>
+
 		<div class="product__text-container">
 			<div class="product__header">
 				{{ itemW }}
@@ -19,8 +22,9 @@
 	<!-- /* main-watched-item end */ -->
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from "vue";
+export default defineComponent({
 	name: "main-watched-item",
 	props: {
 		itemW: String,
@@ -28,7 +32,7 @@ export default {
 		itemAb: String,
 		itemAlt: String,
 	},
-};
+});
 </script>
 
 <style lang="scss" scoped>
@@ -42,10 +46,27 @@ export default {
 	display: flex;
 	flex-direction: column;
 
+	&__img {
+		width: 245px;
+		height: 245px;
+		overflow: hidden;
+		flex-shrink: 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: #ffffff;
+		margin-bottom: 10px;
+		border-radius: 10%;
+		img {
+			height: 100%;
+		}
+	}
+
 	&__text-container {
 		display: flex;
 		flex-direction: column;
 		flex-grow: 1;
+		overflow: hidden;
 	}
 
 	&__header {
@@ -61,6 +82,7 @@ export default {
 		font-size: 14px;
 		line-height: 145%;
 		color: #1f2432;
+		overflow: hidden;
 	}
 
 	&__price {
@@ -68,6 +90,7 @@ export default {
 		flex-direction: column;
 		margin-bottom: 20px;
 		gap: 6px;
+		box-shadow: 0px -15px 30px #f6f8fa;
 
 		&-rub {
 			font-family: "Roboto";

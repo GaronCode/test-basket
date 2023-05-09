@@ -1,24 +1,24 @@
 # test-basket
+Тестовое задание.
 
-## Project setup
-```
-npm install
-```
+**TypeScript** + **Vue 3** + **Vuex** + **SCSS** + **axios** (загрузка с сервера карточек просмотренных товаров)
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
 
-### Compiles and minifies for production
-```
-npm run build
-```
 
-### Lints and fixes files
-```
-npm run lint
-```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## [figma макет](https://www.figma.com/file/MyzTlBZHLzNpf6XbhctlxD/%D0%A2%D0%B5%D1%81%D1%82%D0%BE%D0%B2%D0%BE%D0%B5-Basket?type=design&t=48HFDuYEN8kMc3fl-1)
+
+
+> ТЗ:
+> Верстка по бэм
+> Шапку верстать не нужно
+> Только выводить кол-во товаров в корзине и цену
+> без использования фреймворков(bootstrap, tailwind)
+> Выполнить всё на вью через Store (vuex)
+> - вывод товаров и их удаление
+> - реализовать кнопочки увеличения/уменьшения кол-ва
+> - динамические подсчет стоимости заказа, количества товаров, наличие установки, в зависимости от состояния чек-бокса
+> - в шапке выводить кол-во товаров и стоимость заказа
+> 
+> Не нужно реализовывать каталог. 
+

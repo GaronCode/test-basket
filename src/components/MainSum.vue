@@ -22,7 +22,7 @@
 				<div class="total__category">Установка</div>
 				<div class="total__value">
 					<template v-if="hasItems">
-						<template v-if="setup">да</template>
+						<template v-if="install">да</template>
 						<template v-else>нет</template>
 					</template>
 					<template v-else> — </template>
@@ -38,7 +38,7 @@
 				<template v-if="hasItems">
 					{{ sumnItems.toLocaleString() }} ₽
 				</template>
-				<template v-else> нет товаров </template>
+				<template v-else> — </template>
 			</div>
 		</div>
 		<div class="total__buttons-container">
@@ -53,25 +53,26 @@
 </template>
 
 <script>
+import { computed } from "vue";
+import { useStore } from "vuex";
 export default {
 	name: "main-sum",
+	setup() {
+		const store = useStore();
 
-	computed: {
-		countItems() {
-			return this.$store.getters.basketCountObj.count;
-		},
-		setup() {
-			return this.$store.getters.basketOptions.install;
-		},
-		sumnOrder() {
-			return this.$store.getters.basketPrice;
-		},
-		sumnItems() {
-			return this.sumnOrder;
-		},
-		hasItems() {
-			return this.countItems > 0;
-		},
+		const sumnOrder = computed(() => store.getters.basketPrice);
+		const sumnItems = computed(() => sumnOrder.value);
+
+		const countItems = computed(() => store.getters.basketCountObj.count);
+		const hasItems = computed(() => countItems.value > 0);
+
+		return {
+			countItems,
+			hasItems,
+			install: computed(() => store.getters.basketOptions.install),
+			sumnOrder,
+			sumnItems,
+		};
 	},
 };
 </script>

@@ -45,61 +45,53 @@
 import MainOption from "../components/MainOption.vue";
 import MainBasketItem from "../components/MainBasketItem.vue";
 
-export default {
+import { defineComponent, computed } from "vue";
+import { useStore } from "vuex";
+
+export default defineComponent({
 	name: "main-basket",
-	props: {
-		countItems: Number,
-		countItemsSuff: { type: String, default: "шт" },
-	},
 	components: {
 		MainBasketItem,
 		MainOption,
 	},
 
-	computed: {
-		items() {
-			return this.$store.getters.basketItems;
-		},
-		quant() {
-			return this.$store.getters.basketCountObj;
-		},
-		options() {
-			return this.$store.getters.basketOptions;
-		},
-	},
+	setup() {
+		const store = useStore();
 
-	methods: {
-		clear() {
-			this.$store.commit("basketDelete");
-		},
-		delItem(index) {
-			this.$store.commit("basketItemDelete", index);
-		},
-		changeQuant(index, act) {
+		const items = computed(() => store.getters.basketItems);
+
+		const changeQuant = (index, act) => {
+			const itemsV = items.value;
 			let count;
 			switch (act) {
 				case "+":
-					count = this.items[index].count
-						? this.items[index].count + 1
-						: 1;
+					count = itemsV[index].count ? itemsV[index].count + 1 : 1;
 					break;
 				case "-":
-					if (this.items[index].count === undefined) return;
-					count = this.items[index].count - 1;
+					if (itemsV[index].count === undefined) return;
+					count = itemsV[index].count - 1;
 					break;
 				default:
 					break;
 			}
-			this.$store.commit("basketItemChangeQuant", {
+			store.commit("basketItemChangeQuant", {
 				index,
 				count,
 			});
-		},
-		changeOption(option, value) {
-			this.$store.commit("basketChangeOption", { opt: option, value });
-		},
+		};
+
+		return {
+			items,
+			changeQuant,
+			quant: computed(() => store.getters.basketCountObj),
+			options: computed(() => store.getters.basketOptions),
+			changeOption: (option, value) =>
+				store.commit("basketChangeOption", { opt: option, value }),
+			clear: () => store.commit("basketDelete"),
+			delItem: (index) => store.commit("basketItemDelete", index),
+		};
 	},
-};
+});
 </script>
 
 <style lang="scss" scoped>
@@ -155,6 +147,24 @@ export default {
 		align-items: center;
 		justify-content: center;
 		font-size: xxx-large;
+	}
+}
+
+@media screen and (max-width: 1300px) {
+	.main-basket {
+		max-width: 800px;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.main-basket {
+		text-align: center;
+	}
+	.main-basket__header,
+	.main-basket__header-container,
+	.main-basket__header-sub {
+		display: block !important;
+		margin: 0 !important;
 	}
 }
 </style>

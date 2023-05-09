@@ -13,19 +13,22 @@
 <script>
 import HeaderBasket from "./components/HeaderBasket.vue";
 import Breadcrumb from "./components/Breadcrumb.vue";
-
-export default {
+import { useStore } from "vuex";
+import { defineComponent } from "vue";
+export default defineComponent({
 	name: "App",
 	components: {
 		HeaderBasket,
 		Breadcrumb,
 	},
-};
+
+	setup() {
+		useStore().dispatch("loadHistory");
+	},
+});
 </script>
 
 <style lang="scss">
-
-
 .wrapper {
 	max-width: 1280px;
 	margin: 0 auto;
@@ -92,11 +95,19 @@ html {
 	}
 }
 
-
-
 .breadcrumb {
 	margin-bottom: 60px;
 }
 
+@media screen and (max-width: 1300px) {
+	.wrapper {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
 
+	.breadcrumb-app {
+		display: flex;
+		justify-content: center;
+	}
+}
 </style>

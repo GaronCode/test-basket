@@ -84,6 +84,7 @@ export default {
 	background: #f6f8fa;
 	border-radius: 5px;
 	padding: 35px 30px;
+	max-width: 425px;
 
 	&__header {
 		margin-bottom: 30px;

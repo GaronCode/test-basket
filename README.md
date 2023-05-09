@@ -1,7 +1,7 @@
 # test-basket
 Тестовое задание.
 
-**TypeScript** + **Vue 3** + **Vuex** + **SCSS** + **axios** (загрузка с сервера карточек просмотренных товаров)
+**TypeScript** + **Vue 3** (**Composition Api**) + **Vuex** + **SCSS** + **axios** (загрузка с сервера карточек просмотренных товаров)
 
 ## [Ссылка на работающее приложение](https://garoncode.github.io/test-basket/)
 
